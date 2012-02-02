@@ -16,6 +16,19 @@ int main (int argc, const char * argv[])
     MatDoub a(n,n);
     VecDoub b(n),x(n);
     
+    /*
+     A-matrix:
+     2  4   8
+     4  8   4
+     -2 10  5
+     
+     b-matrix:
+     1
+     2
+     3
+    */
+    
+    // Entering data
     a[0][0] = 2;
     a[0][1] = 4;
     a[0][2] = 8;
@@ -35,6 +48,8 @@ int main (int argc, const char * argv[])
     
     alu.solve(b, x);
     
+    
+    // Outputting results
     std::cout << "x0 = " << x[0] << endl;
     std::cout << "x1 = " << x[1] << endl;
     std::cout << "x2 = " << x[2] << endl;
@@ -43,8 +58,7 @@ int main (int argc, const char * argv[])
     std::cout << "[ " << alu.lu[0][0] << " " << alu.lu[0][1] << " "  << alu.lu[0][2] << " "  << "]" << endl;
     std::cout << "[ " << alu.lu[1][0] << " " << alu.lu[1][1] << " "  << alu.lu[1][2] << " "  << "]" << endl;
     std::cout << "[ " << alu.lu[2][0] << " " << alu.lu[2][1] << " "  << alu.lu[2][2] << " "  << "]" << endl;
-    
-    // insert code here...
+
     std::cout << "Done!\n";
     return 0;
 }
