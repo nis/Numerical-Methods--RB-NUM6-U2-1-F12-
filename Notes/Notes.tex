@@ -1,0 +1,136 @@
+\documentclass[a4wide,10pt]{article}
+\usepackage{a4wide}
+\usepackage[applemac,utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{pdfsync}
+\usepackage{amsmath,amssymb,amsfonts} 
+\usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[small,bf]{caption}
+
+\begin{document}
+\title{Numerical Methods: Notes}
+\author{Nis Sarup}
+\date{\today}
+\maketitle
+
+\pagebreak
+
+\section{Preliminaries} % (fold)
+\label{sec:preliminaries}
+
+\subsection{Error, Accuracy, and Stability} % (fold)
+\label{sub:error_accuracy_and_stability}
+
+\addtocounter{subsubsection}{1}
+\subsubsection{Roundoff Error} % (fold)
+\label{ssub:roundoff_error}
+\begin{itemize}
+	\item Two floats added gives rounding errors.
+	\item The smallest float can be effectively reduced to zero if the difference is large.
+\end{itemize}
+% subsubsection roundoff_error (end)
+
+\subsubsection{Truncation Error} % (fold)
+\label{ssub:truncation_error}
+\begin{itemize}
+	\item Are created when you move from a continual value to a discrete.
+\end{itemize}
+% subsubsection truncation_error (end)
+
+\subsubsection{Stability} % (fold)
+\label{ssub:stability}
+\begin{itemize}
+	\item An early small error used in subsequent calculations and by that makes the result diverge more and more from the real answer makes a method unstable
+\end{itemize}
+% subsubsection stability (end)
+
+% subsection error_accuracy_and_stability (end)
+
+% section preliminaries (end)
+
+\pagebreak
+
+\section{Solution of Linear Algebraic Equations} % (fold)
+\label{sec:solution_of_linear_algebraic_equations}
+
+\addtocounter{subsubsection}{-4}
+\subsubsection{Introduction} % (fold)
+\label{ssub:introduction}
+\begin{itemize}
+	\item If $N = M$ , then there are as many equations as unknowns, and there is a good chance of solving for a unique solution set of $x_j$ ’s. Otherwise, if $N \neq M$ , things are even more interesting.
+\end{itemize}
+% subsubsection introduction (end)
+
+\subsubsection{Tasks of Computational Linear Algebra} % (fold)
+\label{ssub:tasks_of_computational_linear_algebra}
+\begin{itemize}
+	\item When $N = M$:
+	\begin{itemize}
+		\item Solution of the matrix equation $A \cdot x = b$ for an unknown vector $x$
+		\item Solution of more than one matrix equation $A \cdot x_j = b_j$
+		\item Calculation of the matrix $A^{-1}$ that is the matrix inverse of a square matrix $A$
+		\item Calculation of the determinant of a square matrix $A$
+	\end{itemize}
+	\item If $M < N$, or if $M = N$ but the equations are degenerate:
+	\begin{itemize}
+		\item Singular value decomposition of a matrix $A$
+	\end{itemize}
+	\item If $M > N$:
+	\begin{itemize}
+		\item Generally no solution vector $x$
+		\item The set of equations is said to be overdetermined
+		\item The best "compromise" solution is sought, the one that comes closest to satisfying all equations simultaneously.
+		\item If closeness is defined in the least-squares sense then the overdetermined linear problem reduces to a (usually) solvable linear problem
+		\item Linear least-squares problem:
+		\begin{itemize}
+			\item Linear least-squares problem: $(A^T \cdot A) \cdot x = (A^T \cdot b)$
+			\item The above equations is called the normal equations of the linear least-squares problem
+			\item Direct solution of the normal equations not generally the best to find least-squares solution
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+% subsubsection tasks_of_computational_linear_algebra (end)
+
+\subsection{Gauss-Jordan Elimination} % (fold)
+\label{sub:gauss_jordan_elimination}
+\begin{itemize}
+	\item Gauss-Jordan elimination produces both the solution of the equations for one or more right-hand side vectors $b$, and also the matrix inverse $A^{-1}$
+	\item Principal deficiencies
+	\begin{itemize}
+		\item Requires all the right-hand sides to be stored and manipulated at the same time
+		\item When the inverse matrix is not desired, Gauss-Jordan is three times slower than the best alternative technique for solving a single linear set
+	\end{itemize}
+	\item For inverting a matrix, Gauss-Jordan elimination is about as efficient as any other direct method
+	\item Using inverse matrix with a new right-hand side to get additional solutions is higly susceptible to roundoff errors
+	\item Gauss-Jordan elimination should not be your method of first choice for solving linear equations
+\end{itemize}
+% subsection gauss_jordan_elimination (end)
+
+\subsubsection{Elimination on Column-Augmented Matrices} % (fold)
+\label{ssub:elimination_on_column_augmented_matrices}
+\begin{itemize}
+	\item $[\mathbf{A}] \cdot [\mathbf{x}_0 \sqcup \mathbf{x}_1 \sqcup \mathbf{x}_2 \sqcup \mathbf{Y}] = [\mathbf{b}_0 \sqcup \mathbf{b}_1 \sqcup \mathbf{b}_2 \sqcup \mathbf{1}]$
+	\begin{itemize}
+		\item Where $\mathbf{A}$ and $\mathbf{Y}$ is square matrices, the $\mathbf{b}_i$'s and $\mathbf{x}_i$'s are column vectors and $\mathbf{1}$ is the identity matrix
+		\item Simultaneously solves the linear sets:
+		\begin{itemize}
+			\item $\mathbf{A} \cdot \mathbf{x}_0 = \mathbf{b}_0$
+			\item $\mathbf{A} \cdot \mathbf{x}_1 = \mathbf{b}_1$
+			\item $\mathbf{A} \cdot \mathbf{x}_2 = \mathbf{b}_2$
+			\item $\mathbf{A} \cdot \mathbf{Y} = \mathbf{1}$
+		\end{itemize}
+		\item Interchanging any two rows of $\mathbf{A}$ and the corresponding rows of the $\mathbf{b}$’s and of $\mathbf{1}$ does not change the solution $\mathbf{x}$'s and $\mathbf{Y}$
+		\item Likewise if we replace any row in $\mathbf{A}$ by a linear combination of itself and any other row, as long as we do the same linear combination of the rows of the $\mathbf{b}$'s and $\mathbf{1}$
+		\item Interchanging any two columns of $\mathbf{A}$ gives the same solution set only if we simultaneously interchange corresponding rows of the $\mathbf{x}$'s and of $\mathbf{Y}$
+	\end{itemize}
+	\item Gauss-Jordan elimination uses one or more of the above operations to reduce the matrix A to the identity matrix.
+	\item When this is accomplished, the right-hand side becomes the solution set.
+\end{itemize}
+% subsubsection elimination_on_column_augmented_matrices (end)
+
+% section solution_of_linear_algebraic_equations (end)
+
+\end{document}
