@@ -1,0 +1,114 @@
+\documentclass[a4wide,10pt]{article}
+\usepackage{a4wide}
+\usepackage[applemac,utf8]{inputenc}
+\usepackage[danish]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage{pdfsync}
+\usepackage{amsmath,amssymb,amsfonts} 
+\usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage[small,bf]{caption}
+
+\begin{document}
+\title{Numerical Methods: Notater}
+\author{Nis Sarup}
+\date{\today}
+\maketitle
+
+\pagebreak
+
+\section{Lektion 1} % (fold)
+\label{sec:lektion_1}
+
+\subsection{Introduktion} % (fold)
+\label{sub:introduktion}
+Formål:
+\begin{itemize}
+	\item Lære hvad der findes af vigtige numeriske metoder.
+	\item Være i stand til at give et svar inklusiv hvor stor fejlen på det savr er, fejlvurdering
+	\begin{itemize}
+		\item To fejlkilder
+		\begin{itemize}
+			\item Afrundingsfejl
+			\item Metodefejl
+		\end{itemize}
+		\item Er resultatet overhovedet rigtigt?
+		\begin{itemize}
+			\item Fejl 40
+			\item Andre fejl
+		\end{itemize}
+	\end{itemize}
+	\item Få en forhøjet matematisk modenhed
+	\item C++ kode
+\end{itemize}
+% subsection introduktion (end)
+
+\subsection{Numerisk løsning af lineære ligningssystemer} % (fold)
+\label{sub:numerisk_loesning_af_ligningssystemer}
+
+\subsubsection{Lineære ligningssystemer} % (fold)
+\label{ssub:lineaere_ligningssystemer}
+\[\begin{array}{*{20}{c}}
+{2{x_1} - 4x_2^2 = 5}&{{x_1} - 2{x_2} + {x_3} = 8}&{\cos {x_1} + {x_2} = 3}\\
+{3x_1^2 - 5{x_2} = 7}&{{x_2} - 4{x_3} = 7}&{{x_1} - \sin {x_2} = 5}\\
+{}&{{x_1} + 6{x_3} = 8}&{}\\
+I&{II}&{III}
+\end{array}\]
+\begin{itemize}
+	\item Ligningerne i del I og II ovenover er ikke lineære på grund af potenserne og cos/sin.
+\end{itemize}
+% subsubsection lineære_ligningssystemer (end)
+
+\subsubsection{Gaussisk Elimenation} % (fold)
+\label{ssub:gaussisk_elimenation}
+\[\begin{array}{*{20}{c}}
+{2{x_1} + 4{x_2} + 8{x_3} = 1}\\
+{4{x_1} + 6{x_2} + 4{x_3} = 2}\\
+{ - 2{x_1} + 10{x_2} + 5{x_3} = 3}
+\end{array} \Rightarrow \left[ {\begin{array}{*{20}{c}}
+2&4&8\\
+4&6&4\\
+{ - 2}&{10}&5
+\end{array} \vdots \begin{array}{*{20}{c}}
+1\\
+2\\
+3
+\end{array}} \right] \Rightarrow \left[ {\begin{array}{*{20}{c}}
+2&4&8\\
+0&{ - 2}&{ - 12}\\
+0&{14}&{13}
+\end{array} \vdots \begin{array}{*{20}{c}}
+1\\
+0\\
+4
+\end{array}} \right] \Rightarrow \left[ {\begin{array}{*{20}{c}}
+2&4&8\\
+0&{ - 2}&{ - 12}\\
+0&0&{ - 71}
+\end{array} \vdots \begin{array}{*{20}{c}}
+1\\
+0\\
+4
+\end{array}} \right]\]
+\begin{itemize}
+	\item Lav nuller under diagonalen
+\end{itemize}
+\[\begin{array}{l}
+{x_3} =  - {4 \mathord{\left/
+ {\vphantom {4 {71}}} \right.
+ \kern-\nulldelimiterspace} {71}}\\
+{x_2} = \frac{{0 + 12( - {4 \mathord{\left/
+ {\vphantom {4 {71}}} \right.
+ \kern-\nulldelimiterspace} {71}})}}{{ - 2}} = \frac{{24}}{{71}}\\
+{x_1} = {7 \mathord{\left/
+ {\vphantom {7 {142}}} \right.
+ \kern-\nulldelimiterspace} {142}}
+\end{array}\]
+% subsubsection gaussisk_elimenation (end)
+
+% subsection numerisk_løsning_af_ligningssystemer (end)
+
+% section lektion_1 (end)
+
+\end{document}
