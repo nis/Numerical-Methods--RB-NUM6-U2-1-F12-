@@ -173,14 +173,18 @@
 		F1FB525814ED313800A6B38A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/";
 			};
 			name = Debug;
 		};
 		F1FB525914ED313800A6B38A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/";
 			};
 			name = Release;
 		};
