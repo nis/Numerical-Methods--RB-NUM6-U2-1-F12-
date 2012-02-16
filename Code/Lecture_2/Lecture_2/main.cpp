@@ -22,9 +22,10 @@ template<class T> NRvector<T> product(const NRmatrix<T>& A, const NRvector<T>& b
 
 int main (int argc, const char * argv[])
 {
-    do_problem_one();
+    do_problem_two();
     return 0;
 }
+    
 
 void do_problem_two() {
     int m = 82;
@@ -68,7 +69,7 @@ void do_problem_two() {
     
     // Print out the awesome results!
     for (int i = 0; i < 11; i++) {
-        cout << x[i] << endl;
+        cout << "x" << i << ": \t" << x[i] << endl;
     }
     
     std::cout << "Done" << endl;
