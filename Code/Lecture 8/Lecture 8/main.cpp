@@ -12,6 +12,9 @@
 #include <cstdlib>  // For srand() and rand()
 #include <math.h>
 #include <iomanip>
+#include "cholesky.h"
+#include "ludcmp.h"
+#include "svd.h"
 
 void do_pontius();
 void printmat(MatDoub_I m);
@@ -28,41 +31,76 @@ VecDoub sum(const VecDoub a, const VecDoub b);
 VecDoub difference(const VecDoub a, const VecDoub b);
 void do_filip();
 void potens_metode(MatDoub a, int precicion, int k);
+void invers_potens_metode(MatDoub a, int precicion, int k);
 
 int main (int argc, const char * argv[])
 {
 
     do_pontius();
-    //do_filip();
+    do_filip();
     std::cout << "Done!\n";
     return 0;
 }
 
-void do_filip() {
-    double xs[82] = {-6.860120914, -4.324130045, -4.358625055, -4.358426747, -6.955852379, -6.661145254, -6.355462942, -6.118102026, -7.115148017, -6.815308569, -6.519993057, -6.204119983, -5.853871964, -6.109523091, -5.79832982, -5.482672118, -5.171791386, -4.851705903, -4.517126416, -4.143573228, -3.709075441, -3.499489089, -6.300769497, -5.953504836, -5.642065153, -5.031376979, -4.680685696, -4.329846955, -3.928486195, -8.56735134, -8.363211311, -8.107682739, -7.823908741, -7.522878745, -7.218819279, -6.920818754, -6.628932138, -6.323946875, -5.991399828, -8.781464495, -8.663140179, -8.473531488, -8.247337057, -7.971428747, -7.676129393, -7.352812702, -7.072065318, -6.774174009, -6.478861916, -6.159517513, -6.835647144, -6.53165267, -6.224098421, -5.910094889, -5.598599459, -5.290645224, -4.974284616, -4.64454848, -4.290560426, -3.885055584, -3.408378962, -3.13200249, -8.726767166, -8.66695597, -8.511026475, -8.165388579, -7.886056648, -7.588043762, -7.283412422, -6.995678626, -6.691862621, -6.392544977, -6.067374056, -6.684029655, -6.378719832, -6.065855188, -5.752272167, -5.132414673, -4.811352704, -4.098269308, -3.66174277, -3.2644011};
-    
-    VecDoub x(82);
-    for (int i = 0; i < 82; i++) {
-        x[i] = xs[i];
-    }
-    x = scale(x);
-    
-    MatDoub a(x.size(), 11);
-    
-    // Lav A-matricen
+void invers_potens_metode(MatDoub a, int precicion, int k) {
+    VecDoub x(a.ncols());
     for (int i = 0; i < x.size(); i++) {
-        for (int j = 0; j < 11; j++) {
-            a[i][j] = pow(x[i], (double)j);
+        x[i] = rand();
+    }
+    
+    double l = 0;
+    VecDoub xold(x.size());
+    double d, dold, d2, d2old;
+    
+    //MatDoub ai(a.ncols(), a.ncols());
+    //Cholesky c(a);
+    //c.inverse(ai);
+    //LUdcmp alu(a);
+    //alu.inverse(ai);
+    
+    VecDoub y(x.size());
+    
+    //y = ai * x;
+    SVD s(a);
+    //s.solve(y, x);
+    
+    cout << setiosflags(ios::fixed) << setprecision(precicion);
+    cout << "k\t" << "l\t\t\t\t" << "d\t\t\t\t" << "d2\t\t\t\t" << "d/d\t\t\t\t" << "d2/d2\t\t\t" << endl;
+    cout << "--------------------------------------------------------------------------------" << endl;
+    
+    for (int i = 0; i < k; i++) {
+        xold = x;
+        s.solve(xold, y);
+        x = divide_by_norm(y);
+        l = dot(x, xold) / y.length();
+        if (i == 0) {
+            cout << i << "\t" << endl;
+        } else if (i == 1) {
+            d = abs(length(difference(x, xold)));
+            d2 = difference(x, xold)[2];
+            cout << i << "\t";
+            cout << l << "\t";
+            cout << d << "\t";
+            cout << d2 << "\t";
+            cout << endl;
+        } else if (i > 1) {
+            dold = d;
+            d = abs(length(difference(x, xold)));
+            d2old = d2;
+            d2 = difference(x, xold)[2];
+            cout << i << "\t";
+            cout << l << "\t";
+            cout << d << "\t";
+            cout << d2 << "\t";
+            cout << d/dold << "\t";
+            cout << d2/d2old << "\t";
+            cout << endl;
         }
     }
-    
-    MatDoub ata = transpose(a) * a;
-    
-    potens_metode(ata, 10, 10);
+    cout << endl;
 }
 
 void potens_metode(MatDoub a, int precicion, int k) {
-   // cout << a.ncols() << endl;
     VecDoub x(a.ncols());
     for (int i = 0; i < x.size(); i++) {
         x[i] = rand();
@@ -107,6 +145,33 @@ void potens_metode(MatDoub a, int precicion, int k) {
             cout << endl;
         }
     }
+    cout << endl;
+}
+
+void do_filip() {
+    double xs[82] = {-6.860120914, -4.324130045, -4.358625055, -4.358426747, -6.955852379, -6.661145254, -6.355462942, -6.118102026, -7.115148017, -6.815308569, -6.519993057, -6.204119983, -5.853871964, -6.109523091, -5.79832982, -5.482672118, -5.171791386, -4.851705903, -4.517126416, -4.143573228, -3.709075441, -3.499489089, -6.300769497, -5.953504836, -5.642065153, -5.031376979, -4.680685696, -4.329846955, -3.928486195, -8.56735134, -8.363211311, -8.107682739, -7.823908741, -7.522878745, -7.218819279, -6.920818754, -6.628932138, -6.323946875, -5.991399828, -8.781464495, -8.663140179, -8.473531488, -8.247337057, -7.971428747, -7.676129393, -7.352812702, -7.072065318, -6.774174009, -6.478861916, -6.159517513, -6.835647144, -6.53165267, -6.224098421, -5.910094889, -5.598599459, -5.290645224, -4.974284616, -4.64454848, -4.290560426, -3.885055584, -3.408378962, -3.13200249, -8.726767166, -8.66695597, -8.511026475, -8.165388579, -7.886056648, -7.588043762, -7.283412422, -6.995678626, -6.691862621, -6.392544977, -6.067374056, -6.684029655, -6.378719832, -6.065855188, -5.752272167, -5.132414673, -4.811352704, -4.098269308, -3.66174277, -3.2644011};
+    
+    VecDoub x(82);
+    for (int i = 0; i < 82; i++) {
+        x[i] = xs[i];
+    }
+    x = scale(x);
+    
+    MatDoub a(x.size(), 11);
+    
+    // Lav A-matricen
+    for (int i = 0; i < x.size(); i++) {
+        for (int j = 0; j < 11; j++) {
+            a[i][j] = pow(x[i], (double)j);
+        }
+    }
+    
+    MatDoub ata = transpose(a) * a;
+    
+//    cout << "Filip: Potens metode" << endl;
+//    potens_metode(ata, 10, 10);
+    cout << "Filip: Invers potens metode" << endl;
+    invers_potens_metode(ata, 13, 10);
 }
 
 void do_pontius() {
@@ -129,7 +194,11 @@ void do_pontius() {
     }
     
     MatDoub ata = product(transpose(a), a);
-    potens_metode(ata, 10, 10);
+    
+//    cout << "Pontius: Potens metode" << endl;
+//    potens_metode(ata, 10, 10);
+    cout << "Pontius: Invers potens metode" << endl;
+    invers_potens_metode(ata, 10, 10);
 }
 
 VecDoub sum(const VecDoub a, const VecDoub b) {
