@@ -26,6 +26,7 @@ double avg(const VecDoub x);
 VecDoub scale(const VecDoub x);
 VecDoub sum(const VecDoub a, const VecDoub b);
 VecDoub difference(const VecDoub a, const VecDoub b);
+void potens_metode(MatDoub a, int precicion, int k);
 
 int main (int argc, const char * argv[])
 {
@@ -61,37 +62,53 @@ void do_pontius() {
     x[0] = rand();
     x[1] = rand();
     x[2] = rand();
+void potens_metode(MatDoub a, int precicion, int k) {
+   // cout << a.ncols() << endl;
+    VecDoub x(a.ncols());
+    for (int i = 0; i < x.size(); i++) {
+        x[i] = rand();
+    }
     
     double l = 0;
-    VecDoub xold(3);
+    VecDoub xold(x.size());
+    double d, dold, d2, d2old;
     
-    VecDoub y = product(ata, x);
+    VecDoub y = a * x;
     
-    cout << setiosflags(ios::fixed) << setprecision(8);
-    cout << "k\t" << "l\t\t\t\t" << "d\t\t\t" << "d2\t\t\t" << endl;
-    cout << "-----------------------------------------------" << endl;
+    cout << setiosflags(ios::fixed) << setprecision(precicion);
+    cout << "k\t" << "l\t\t\t\t" << "d\t\t\t\t" << "d2\t\t\t\t" << "d/d\t\t\t\t" << "d2/d2\t\t\t" << endl;
+    cout << "--------------------------------------------------------------------------------" << endl;
     
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < k; i++) {
         xold = x;
         x = divide_by_norm(y);
-        y = product(ata, x);
+        y = a * x;
         l = dot(x, y);
         if (i == 0) {
             cout << i << "\t" << endl;
         } else if (i == 1) {
+            d = abs(length(difference(x, xold)));
+            d2 = difference(x, xold)[2];
             cout << i << "\t";
             cout << l << "\t";
-            cout << abs(length(difference(x, xold))) << "\t";
-            cout << difference(x, xold)[2];
+            cout << d << "\t";
+            cout << d2 << "\t";
             cout << endl;
         } else if (i > 1) {
+            dold = d;
+            d = abs(length(difference(x, xold)));
+            d2old = d2;
+            d2 = difference(x, xold)[2];
             cout << i << "\t";
             cout << l << "\t";
-            cout << abs(length(difference(x, xold))) << "\t";
-            cout << difference(x, xold)[2];
+            cout << d << "\t";
+            cout << d2 << "\t";
+            cout << d/dold << "\t";
+            cout << d2/d2old << "\t";
             cout << endl;
         }
     }
+}
     
     //cout << l << endl;
 }
