@@ -117,6 +117,16 @@ public:
 	void resize(int newn); // resize (contents not preserved)
 	void assign(int newn, const T &a); // resize and assign a constant value
 	~NRvector();
+	double operator*(const NRvector &rhs);
+	NRvector operator*(const double &rhs);
+	NRvector operator+(const NRvector &rhs);
+	NRvector operator-(const NRvector &rhs);
+	NRvector operator/(const double &rhs);
+	NRvector operator^(const NRvector &rhs);
+	double average();
+	double length();
+	NRvector norm();
+	void print();
 };
 
 // NRvector definitions
@@ -219,6 +229,168 @@ NRvector<T>::~NRvector()
 	if (v != NULL) delete[] (v);
 }
 
+/* SELF-MADE FUNCTIONS */
+
+template <class T>
+double NRvector<T>::operator*(const NRvector<T> &rhs)
+{
+	double dotproduct = 0;
+
+	if (nn != rhs.size())
+	{
+		throw("Vector dot product of different size");
+	}
+
+	for( int i = 0; i < nn; i++)
+	{
+		dotproduct += v[i] * rhs[i];
+	}
+
+	return dotproduct;
+}
+
+template <class T>
+NRvector<T> NRvector<T>::operator*(const double &rhs)
+{
+	NRvector res(nn);
+
+	for( int i = 0; i < nn; i++)
+	{
+		res[i] = v[i]*rhs;
+	}
+
+	return res;
+}
+
+template <class T>
+NRvector<T> NRvector<T>::operator+(const NRvector<T> &rhs)
+{
+	NRvector res(nn);
+
+	if (nn != rhs.size())
+	{
+		throw("Vector addition of different size");
+	}
+
+	for( int i = 0; i < nn; i++)
+	{
+		res[i] = v[i] + rhs[i];
+	}
+
+	return res;
+}
+
+template <class T>
+NRvector<T> NRvector<T>::operator^(const NRvector<T> &rhs)
+{
+
+	if ((nn != rhs.size()) | (nn != 3))
+	{
+		throw("Vector cross product of wrong size");
+	}
+
+	NRvector res(3);
+	res[0] = v[1]*rhs[2] - v[2]*rhs[1];
+	res[1] = v[2]*rhs[0] - v[0]*rhs[2];
+	res[2] = v[0]*rhs[1] - v[1]*rhs[0];
+
+	return res;
+}
+
+template <class T>
+NRvector<T> NRvector<T>::operator-(const NRvector<T> &rhs)
+{
+	NRvector res(nn);
+
+	if (nn != rhs.size())
+	{
+		throw("Vector subtraction of different size");
+	}
+
+	for( int i = 0; i < nn; i++)
+	{
+		res[i] = v[i] - rhs[i];
+	}
+
+	return res;
+}
+
+template <class T>
+NRvector<T> NRvector<T>::operator/(const double &rhs)
+{
+	NRvector res(nn);
+
+	for( int i = 0; i < nn; i++)
+	{
+		res[i] = v[i]/rhs;
+	}
+
+	return res;
+}
+
+template <class T>
+double NRvector<T>::average()
+{
+	double sum = 0;
+
+	for( int i = 0; i < nn; i++)
+	{
+		sum += v[i];
+	}
+
+	return sum/nn;
+}
+
+template <class T>
+double NRvector<T>::length()
+{
+	double sum = 0;
+
+	for( int i = 0; i < nn; i++)
+	{
+		sum += pow(v[i],(double)2);
+	}
+
+	return sqrt(sum);
+}
+
+template <class T>
+NRvector<T> NRvector<T>::norm()
+{
+	NRvector res(nn);
+	double len = this->length();
+
+	for( int i = 0; i < nn; i++)
+	{
+		res[i] = v[i]/len;
+	}
+
+	return res;
+}
+
+template <class T>
+void NRvector<T>::print()
+{
+	for( int i = 0; i < nn; i++)
+	{
+		cout << v[i] << " ";
+	}
+	cout << endl;
+}
+
+template <class T>
+std::ostream& operator <<( std::ostream& os, NRvector<T>& v )
+{
+	for( int i = 0; i < v.size(); i++)
+	{
+			os << v[i] << " ";
+	}
+	os << endl;
+  return ( os ) ;
+}
+
+/* SELF-MADE FUNCTIONS */
+
 // end of NRvector definitions
 
 #endif //ifdef _USESTDVECTOR_
@@ -243,7 +415,11 @@ public:
 	inline int ncols() const;
 	void resize(int newn, int newm); // resize (contents not preserved)
 	void assign(int newn, int newm, const T &a); // resize and assign a constant value
+	NRmatrix transpose();
+	NRmatrix operator*( NRmatrix &rhs);
+	NRvector<T> operator*( NRvector<T> &rhs);
 	~NRmatrix();
+	void print();
 };
 
 template <class T>
@@ -388,6 +564,95 @@ NRmatrix<T>::~NRmatrix()
 		delete[] (v);
 	}
 }
+
+/* SELF-MADE FUNCTIONS */
+
+template <class T>
+NRvector<T> NRmatrix<T>::operator*(NRvector<T> &rhs)
+{
+	NRvector<T> res(nn);
+
+	if( mm != rhs.size())
+		throw("Number of matrix columns must equal vector size");
+
+	for( int i = 0; i < res.size(); i++)
+	{
+		res[i] = 0;
+		for( int k = 0; k < mm; k++)
+		{
+			res[i] += v[i][k]*rhs[k];
+		}
+	}
+	return res;
+}
+
+template <class T>
+NRmatrix<T> NRmatrix<T>::operator*(NRmatrix<T> &rhs)
+{
+	NRmatrix<T> res(nn,rhs.ncols());
+
+	if( mm != rhs.nrows())
+		throw("Number of columns of first argument must equal number of rows of second argument");
+
+	for( int i = 0; i < res.nrows(); i++)
+	{
+		for( int j = 0; j < res.ncols(); j++)
+		{
+			res[i][j] = 0;
+			for( int k = 0; k < rhs.nrows(); k++)
+			{
+				res[i][j] += v[i][k]*rhs[k][j];
+			}
+		}
+	}
+	return res;
+}
+
+template <class T>
+NRmatrix<T> NRmatrix<T>::transpose()
+{
+	NRmatrix<T> r(mm,nn);
+	for( int i = 0; i < nn; i++ )
+	{
+		for( int j = 0; j < mm; j++)
+		{
+			r[j][i] = v[i][j];
+		}
+	}
+	return r;
+}
+
+
+template <class T>
+void NRmatrix<T>::print()
+{
+	cout.precision(6);
+	cout << setiosflags( ios::fixed );
+	for( int i = 0; i < nn; i++)
+	{
+		for( int j = 0; j < mm; j++)
+		{
+			cout << v[i][j] << "\t";
+		}
+		cout << endl;
+	}
+}
+
+template <class T>
+std::ostream& operator <<( std::ostream& os, NRmatrix<T>& v )
+{
+	for( int i = 0; i < v.nrows(); i++)
+	{
+		for( int j = 0; j < v.ncols(); j++)
+		{
+			os << v[i][j] << " ";
+		}
+		os << endl;
+	}
+  return ( os ) ;
+}
+
+/* SELF-MADE FUNCTIONS */
 
 template <class T>
 class NRMat3d {
