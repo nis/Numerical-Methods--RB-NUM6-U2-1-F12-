@@ -168,10 +168,10 @@ void do_filip() {
     
     MatDoub ata = transpose(a) * a;
     
-//    cout << "Filip: Potens metode" << endl;
-//    potens_metode(ata, 10, 10);
+    cout << "Filip: Potens metode" << endl;
+    potens_metode(ata, 18, 16);
     cout << "Filip: Invers potens metode" << endl;
-    invers_potens_metode(ata, 13, 10);
+    invers_potens_metode(ata, 18, 10);
 }
 
 void do_pontius() {
@@ -195,8 +195,8 @@ void do_pontius() {
     
     MatDoub ata = product(transpose(a), a);
     
-//    cout << "Pontius: Potens metode" << endl;
-//    potens_metode(ata, 10, 10);
+    cout << "Pontius: Potens metode" << endl;
+    potens_metode(ata, 10, 10);
     cout << "Pontius: Invers potens metode" << endl;
     invers_potens_metode(ata, 10, 10);
 }
