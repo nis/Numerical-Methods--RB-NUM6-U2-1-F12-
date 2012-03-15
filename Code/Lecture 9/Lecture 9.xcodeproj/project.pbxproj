@@ -173,14 +173,18 @@
 		F150F0A71512209A003C9C9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/**";
 			};
 			name = Debug;
 		};
 		F150F0A81512209A003C9C9A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/**";
 			};
 			name = Release;
 		};
