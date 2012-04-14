@@ -1,0 +1,214 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F16A938915370C1E00B0ADBD /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F16A938815370C1E00B0ADBD /* main.cpp */; };
+		F16A938B15370C1E00B0ADBD /* Varmeplader.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = F16A938A15370C1E00B0ADBD /* Varmeplader.1 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F16A938215370C1E00B0ADBD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				F16A938B15370C1E00B0ADBD /* Varmeplader.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F16A938415370C1E00B0ADBD /* Varmeplader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Varmeplader; sourceTree = BUILT_PRODUCTS_DIR; };
+		F16A938815370C1E00B0ADBD /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F16A938A15370C1E00B0ADBD /* Varmeplader.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Varmeplader.1; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F16A938115370C1E00B0ADBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F16A937915370C1E00B0ADBD = {
+			isa = PBXGroup;
+			children = (
+				F16A938715370C1E00B0ADBD /* Varmeplader */,
+				F16A938515370C1E00B0ADBD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F16A938515370C1E00B0ADBD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F16A938415370C1E00B0ADBD /* Varmeplader */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F16A938715370C1E00B0ADBD /* Varmeplader */ = {
+			isa = PBXGroup;
+			children = (
+				F16A938815370C1E00B0ADBD /* main.cpp */,
+				F16A938A15370C1E00B0ADBD /* Varmeplader.1 */,
+			);
+			path = Varmeplader;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F16A938315370C1E00B0ADBD /* Varmeplader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F16A938E15370C1E00B0ADBD /* Build configuration list for PBXNativeTarget "Varmeplader" */;
+			buildPhases = (
+				F16A938015370C1E00B0ADBD /* Sources */,
+				F16A938115370C1E00B0ADBD /* Frameworks */,
+				F16A938215370C1E00B0ADBD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Varmeplader;
+			productName = Varmeplader;
+			productReference = F16A938415370C1E00B0ADBD /* Varmeplader */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F16A937B15370C1E00B0ADBD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = F16A937E15370C1E00B0ADBD /* Build configuration list for PBXProject "Varmeplader" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F16A937915370C1E00B0ADBD;
+			productRefGroup = F16A938515370C1E00B0ADBD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F16A938315370C1E00B0ADBD /* Varmeplader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F16A938015370C1E00B0ADBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F16A938915370C1E00B0ADBD /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		F16A938C15370C1E00B0ADBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		F16A938D15370C1E00B0ADBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F16A938F15370C1E00B0ADBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/**";
+			};
+			name = Debug;
+		};
+		F16A939015370C1E00B0ADBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "/Users/tamen/Documents/Archive/Skole/SDU/6.\\ Semester/Numeriske\\ Metoder/Code/Tools/NR_C301/code/**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F16A937E15370C1E00B0ADBD /* Build configuration list for PBXProject "Varmeplader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16A938C15370C1E00B0ADBD /* Debug */,
+				F16A938D15370C1E00B0ADBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F16A938E15370C1E00B0ADBD /* Build configuration list for PBXNativeTarget "Varmeplader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F16A938F15370C1E00B0ADBD /* Debug */,
+				F16A939015370C1E00B0ADBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F16A937B15370C1E00B0ADBD /* Project object */;
+}
