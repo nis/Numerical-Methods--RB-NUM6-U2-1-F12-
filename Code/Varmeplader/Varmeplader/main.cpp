@@ -20,7 +20,7 @@ struct F{
         res = 1 - e;
         double top = pow(1.0, 2.0);
         double bottom = pow(pow(1.0, 2.0) + pow((x - y), 2.0), (3.0/2.0));
-        res = 0.5 * (top / bottom);
+        res = res * 0.5 * (top / bottom);
         res = h * res;
         return res;
     }
@@ -31,8 +31,14 @@ int main (int argc, const char * argv[])
 {
 
     // insert code here...
-    int N = 3;
-    sol<F>(Pl, N, -0.5, 0.5, 0.80, 0.60, 1000.0, 500.0);
+    int N = 4;
+    double a = -0.5;
+    double b = 0.5;
+    double e1 = 0.80;
+    double e2 = 0.60;
+    double t1 = 1000.0;
+    double t2 = 500.0;
+    sol<F>(Pl, N, a, b, e1, e2, t1, t2);
     std::cout << "Done!" << endl;
     return 0;
 }
@@ -45,16 +51,18 @@ template <class T> void sol(T &F, int N, double a, double b, double e1, double e
         A[i][i] = 1;
     }
     
-    // Calculate h, nots ure if this is right
-    double h = (b - a)/(N-1);
+    // Calculate h
+    double h = (b - a)/N;
     
     // Make and populate the x and y vectors
     VecDoub x(N);
     VecDoub y(N);
     for (int i = 0; i < x.size(); i++) {
         x[i] = a + i * h;
+        cout << x[i] << endl;
         y[i] = a + i * h;
     }
+    
     
     // Do the first set
     for (int ypos = 0; ypos < N; ypos++) {
@@ -87,9 +95,9 @@ template <class T> void sol(T &F, int N, double a, double b, double e1, double e
     VecDoub bvec(N * 2);
     for (int i = 0; i < bvec.size(); i++) {
         if (i < N) {
-            bvec[i] = e1 * (5.67037310 * pow(10.0, -8.0)) * pow(T1, 4.0);
+            bvec[i] = e1 * (1.712 * pow(10.0, -9.0)) * pow(T1, 4.0);
         } else {
-            bvec[i] = e2 * (5.67037310 * pow(10.0, -8.0)) * pow(T2, 4.0);
+            bvec[i] = e2 * (1.712 * pow(10.0, -9.0)) * pow(T2, 4.0);
         }
     }
     //bvec.print();
