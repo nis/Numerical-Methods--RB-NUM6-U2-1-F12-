@@ -12,7 +12,7 @@
 #include "ludcmp.h"
 
 template <class T> double int_trapez(T &f, int N, double a, double b);
-template <class T> void sol(T &F, int N, double a, double b, double e1, double e2, double T1, double T2);
+template <class T> void sol(T &F, const int N, const double a, const double b, const double e1, const double e2, const double T1, const double T2);
 
 struct F{
     double operator()(double h, double x, double y, double e) {
@@ -43,7 +43,7 @@ int main (int argc, const char * argv[])
     return 0;
 }
 
-template <class T> void sol(T &F, int N, double a, double b, double e1, double e2, double T1, double T2) {
+template <class T> void sol(T &F, const int N, const double a, const double b, const double e1, const double e2, const double T1, const double T2) {
     
     // Make the A matrix
     MatDoub A(N*2, N*2);
@@ -73,7 +73,7 @@ template <class T> void sol(T &F, int N, double a, double b, double e1, double e
             } else {
                 ht = h;
             }
-            A[ypos][xpos] = F(ht, x[xpos], y[ypos], e1);
+            A[ypos][xpos] = F(ht, x[xpos - N], y[ypos], e1);
         }
     }
     
@@ -86,10 +86,10 @@ template <class T> void sol(T &F, int N, double a, double b, double e1, double e
             } else {
                 ht = h;
             }
-            A[ypos][xpos] = F(ht, x[xpos], y[ypos], e2);
+            A[ypos][xpos] = F(ht, x[xpos], y[ypos - N], e2);
         }
     }
-    //A.print();
+    A.print();
     
     // Make the b vector
     VecDoub bvec(N * 2);
